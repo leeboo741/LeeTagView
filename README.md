@@ -1,5 +1,7 @@
 # LeeTagView
-### 例图（DEMO 截取）
+### 例图
+
+ ![demo截图](https://github.com/leeboo741/LeeTagView/blob/master/FE799EF3-A0D5-419C-B57C-97583E538398.png)
   
 ### 要做什么
 
