@@ -20,25 +20,15 @@
 
 @interface LeeTagView()
 @property (nonatomic, strong) NSMutableArray * tags;
-@property (nonatomic, assign) BOOL didSetUp; // 是否重新设置
+@property (nonatomic, assign) BOOL didSetUp; // 是否重新设置,其实就是控制不要频繁的在layoutsubviews里面刷新，也是防着循环调用
 @end
 
 static CGFloat kItemSpacingH = 8.0f;
 static CGFloat kItemSpacingV = 8.0f;
 
 @implementation LeeTagView
--(CGFloat)itemSpacingH{
-    if (_itemSpacingH == 0) {
-        return kItemSpacingH;
-    }
-    return _itemSpacingH;
-}
--(CGFloat)itemSpacingV{
-    if (_itemSpacingV == 0) {
-        return kItemSpacingV;
-    }
-    return _itemSpacingV;
-}
+#pragma mark -
+#pragma mark Rewrite
 // 重写IntrinsicContentSize方法
 -(CGSize)intrinsicContentSize{
     // 如果内容为空，内容宽高坍缩成零点状态
@@ -113,7 +103,63 @@ static CGFloat kItemSpacingV = 8.0f;
         self.tagViewMaxWidth = self.frame.size.width;
     }
     [super layoutSubviews];
-    [self layoutTags];
+    [self resetTags];
+}
+-(void)resetTags{
+    if (self.didSetUp || !self.tags.count) {
+        return;
+    }
+    // tagView padding
+    CGFloat topPadding = self.tagViewPadding.top;
+    CGFloat leftPadding = self.tagViewPadding.left;
+    CGFloat rightPadding = self.tagViewPadding.right;
+    UIView * preTagItem = nil;
+    CGFloat X = leftPadding;
+    if (self.tagViewLineStyle != LeeTagViewLineStyleSingle && self.tagViewMaxWidth > 0) {
+        for (UIView *view in self.subviews) {
+            CGSize size = view.intrinsicContentSize;
+            CGFloat width1 = self.itemRegularWidth != 0 ? self.itemRegularWidth : size.width;
+            CGFloat height1 = self.itemRegularHeight != 0 ? self.itemRegularHeight : size.height;
+            if (preTagItem) {
+                X += self.itemSpacingH;
+                if (X + width1 + rightPadding <= self.tagViewMaxWidth) {
+                    view.frame = CGRectMake(X, CGRectGetMinY(preTagItem.frame), width1, height1);
+                    X += width1;
+                } else {
+                    CGFloat width = MIN(width1, self.tagViewMaxWidth - leftPadding - rightPadding);
+                    view.frame = CGRectMake(leftPadding, CGRectGetMaxY(preTagItem.frame) + self.itemSpacingV, width, height1);
+                    X = leftPadding + width;
+                }
+            } else {
+                CGFloat width = MIN(width1, self.tagViewMaxWidth - leftPadding - rightPadding);
+                view.frame = CGRectMake(leftPadding, topPadding, width, height1);
+                X += width;
+            }
+            preTagItem = view;
+        }
+    }else {
+        for (UIView *view in self.subviews) {
+            CGSize size = view.intrinsicContentSize;
+            view.frame = CGRectMake(X, topPadding, self.itemRegularWidth != 0 ? self.itemRegularWidth : size.width, self.itemRegularHeight != 0 ? self.itemRegularHeight : size.height);
+            X += self.itemRegularWidth != 0 ? self.itemRegularWidth : size.width;
+            preTagItem = view;
+        }
+    }
+    self.didSetUp = YES;
+}
+#pragma mark -
+#pragma mark Set/Get
+-(CGFloat)itemSpacingH{
+    if (_itemSpacingH == 0) {
+        return kItemSpacingH;
+    }
+    return _itemSpacingH;
+}
+-(CGFloat)itemSpacingV{
+    if (_itemSpacingV == 0) {
+        return kItemSpacingV;
+    }
+    return _itemSpacingV;
 }
 -(NSMutableArray *)tags{
     if (!_tags) {
@@ -128,54 +174,8 @@ static CGFloat kItemSpacingV = 8.0f;
         [self invalidateIntrinsicContentSize];
     }
 }
--(void)layoutTags{
-    if (self.didSetUp || !self.tags.count) {
-        return;
-    }
-    // subViews
-    NSArray * subviews = self.subviews;
-    // itemSpacing
-    CGFloat itemSpacing = self.itemSpacingH;
-    // lineSpacing
-    CGFloat lineSpacing = self.itemSpacingV;
-    // tagView padding
-    CGFloat topPadding = self.tagViewPadding.top;
-    CGFloat leftPadding = self.tagViewPadding.left;
-    CGFloat rightPadding = self.tagViewPadding.right;
-    UIView * preTagItem = nil;
-    CGFloat currentX = leftPadding;
-    if (self.tagViewLineStyle != LeeTagViewLineStyleSingle && self.tagViewMaxWidth > 0) {
-        for (UIView *view in subviews) {
-            CGSize size = view.intrinsicContentSize;
-            CGFloat width1 = self.itemRegularWidth != 0 ? self.itemRegularWidth : size.width;
-            CGFloat height1 = self.itemRegularHeight != 0 ? self.itemRegularHeight : size.height;
-            if (preTagItem) {
-                currentX += itemSpacing;
-                if (currentX + width1 + rightPadding <= self.tagViewMaxWidth) {
-                    view.frame = CGRectMake(currentX, CGRectGetMinY(preTagItem.frame), width1, height1);
-                    currentX += width1;
-                } else {
-                    CGFloat width = MIN(width1, self.tagViewMaxWidth - leftPadding - rightPadding);
-                    view.frame = CGRectMake(leftPadding, CGRectGetMaxY(preTagItem.frame) + lineSpacing, width, height1);
-                    currentX = leftPadding + width;
-                }
-            } else {
-                CGFloat width = MIN(width1, self.tagViewMaxWidth - leftPadding - rightPadding);
-                view.frame = CGRectMake(leftPadding, topPadding, width, height1);
-                currentX += width;
-            }
-            preTagItem = view;
-        }
-    }else {
-        for (UIView *view in subviews) {
-            CGSize size = view.intrinsicContentSize;
-            view.frame = CGRectMake(currentX, topPadding, self.itemRegularWidth != 0 ? self.itemRegularWidth : size.width, self.itemRegularHeight != 0 ? self.itemRegularHeight : size.height);
-            currentX += self.itemRegularWidth != 0 ? self.itemRegularWidth : size.width;
-            preTagItem = view;
-        }
-    }
-    self.didSetUp = YES;
-}
+#pragma mark -
+#pragma mark Tag Action
 -(void)tagButtonAction:(LeeTagButton *)tagButton{
     if (self.tagViewSelectionStyle == LeeTagViewStyleSelectSingle) {
         tagButton.selected = !tagButton.selected;
@@ -194,6 +194,8 @@ static CGFloat kItemSpacingV = 8.0f;
         [self.delegate leeTagView:self tapTagButton:tagButton atIndex:[self.subviews indexOfObject:tagButton]];
     }
 }
+#pragma mark -
+#pragma mark Public Action
 -(void)addTag:(LeeTagViewModel *)tag{
     NSParameterAssert(tag);
     LeeTagButton * tagButton = [LeeTagButton tagButtonWithTagViewModel:tag];
