@@ -1,7 +1,10 @@
 # LeeTagView
 ### 例图
 
- ![demo截图](https://github.com/leeboo741/LeeTagView/blob/master/FE799EF3-A0D5-419C-B57C-97583E538398.png)
+ ![demo截图](https://github.com/leeboo741/ImageRepository/blob/master/LeeTagViewImage/leeTagView_Screen.png)
+ ![初始化](https://github.com/leeboo741/ImageRepository/blob/master/LeeTagViewImage/leeTagView_init.png)
+ ![添加标签](https://github.com/leeboo741/ImageRepository/blob/master/LeeTagViewImage/leeTagView_viewModel.png)
+ ![点击事件回调](https://github.com/leeboo741/ImageRepository/blob/master/LeeTagViewImage/leeTagView_delegate.png)
   
 ### 要做什么
 
