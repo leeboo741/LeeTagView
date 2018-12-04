@@ -12,13 +12,18 @@
 @interface TagViewController ()<LeeTagViewDelegate>
 @property (weak, nonatomic) IBOutlet LeeTagView *multiTagView;
 @property (weak, nonatomic) IBOutlet LeeTagView *testTagView;
+@property (weak, nonatomic) IBOutlet LeeTagView *disableTagView;
+
+@property (nonatomic, strong) NSMutableArray * selectDataArray;
 @end
 
 @implementation TagViewController
+- (IBAction)back:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     
     _multiTagView.delegate = self;
     _multiTagView.tagViewSelectionStyle = LeeTagViewStyleSelectMulti;
@@ -27,6 +32,8 @@
     _multiTagView.tagViewMaxWidth = self.view.frame.size.width;
     [[self dataArray] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         LeeTagViewModel * tagModel = [[LeeTagViewModel alloc]init];
+        
+        tagModel.data = obj;
         
         tagModel.tagText = obj;
         tagModel.tagTextColor = [UIColor blackColor];
@@ -40,8 +47,7 @@
         tagModel.tagSelectBorderColor = [UIColor greenColor];
         tagModel.tagBorderWidth = 2.0f;
         
-        tagModel.contentPadding = UIEdgeInsetsMake(3, 23, 3, 23);
-        tagModel.imagePadding = UIEdgeInsetsMake(5, -10, 5, 0);
+        tagModel.contentPadding = UIEdgeInsetsMake(10, 10, 10, 10);
         
         [self.multiTagView addTag:tagModel];
     }];
@@ -52,6 +58,8 @@
     _testTagView.tagViewMaxWidth = self.view.frame.size.width;
     [[self dataArray] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         LeeTagViewModel * tagModel = [[LeeTagViewModel alloc]init];
+        
+        tagModel.data = obj;
         
         tagModel.tagText = obj;
         tagModel.tagTextColor = [UIColor blackColor];
@@ -69,13 +77,30 @@
         tagModel.tagBorderWidth = 2.0f;
         
         tagModel.contentPadding = UIEdgeInsetsMake(0, 0, 0, 10);
-//        tagModel.imagePadding = UIEdgeInsetsMake(4, 0, 4, 20);
         
         [self.testTagView addTag:tagModel];
     }];
+    _disableTagView.tagViewSelectionStyle = LeeTagViewStyleSelectDisable;
+    _disableTagView.tagViewLineStyle = LeeTagViewLineStyleMulti;
+    _disableTagView.tagViewPadding = UIEdgeInsetsMake(10, 10, 10, 10);
+    _disableTagView.tagViewMaxWidth = self.view.frame.size.width;
 }
 -(void)leeTagView:(LeeTagView *)tagView tapTagButton:(LeeTagButton *)tagButton atIndex:(NSInteger)index{
-    
+    if (tagView == _multiTagView){
+        if (tagButton.tagViewModel.isSelect) {
+            [self.selectDataArray addObject:tagButton.tagViewModel];
+            [self.disableTagView addTag:tagButton.tagViewModel];
+        }else{
+            [self.selectDataArray removeObject:tagButton.tagViewModel];
+            [self.disableTagView removeTag:tagButton.tagViewModel];
+        }
+    }
+}
+-(NSMutableArray *)selectDataArray{
+    if (!_selectDataArray) {
+        _selectDataArray = [NSMutableArray array];
+    }
+    return _selectDataArray;
 }
 -(NSArray *)dataArray{
     return @[
@@ -97,14 +122,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagViewController">
             <connections>
+                <outlet property="disableTagView" destination="Xto-ph-l7R" id="uc0-SH-sMF"/>
                 <outlet property="multiTagView" destination="hqm-B0-Wkt" id="mNF-Tj-ft5"/>
                 <outlet property="testTagView" destination="YBl-n2-Opn" id="Idr-5F-cbl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -30,18 +31,34 @@
                     <rect key="frame" x="0.0" y="155" width="375" height="151"/>
                     <color key="backgroundColor" red="0.85490196080000003" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xto-ph-l7R" customClass="LeeTagView">
+                    <rect key="frame" x="0.0" y="314" width="375" height="123"/>
+                    <color key="backgroundColor" red="0.58945360912847145" green="0.76530895373854968" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mHp-rG-3ta">
+                    <rect key="frame" x="16" y="617" width="34" height="30"/>
+                    <state key="normal" title="back"/>
+                    <connections>
+                        <action selector="back:" destination="-1" eventType="touchUpInside" id="lk2-eF-0IY"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="hqm-B0-Wkt" firstAttribute="leading" secondItem="YBl-n2-Opn" secondAttribute="leading" id="1e8-Sr-bEe"/>
+                <constraint firstItem="mHp-rG-3ta" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="16" id="5yA-bF-agf"/>
                 <constraint firstItem="YBl-n2-Opn" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="7qL-ZG-iyG"/>
+                <constraint firstItem="Xto-ph-l7R" firstAttribute="leading" secondItem="hqm-B0-Wkt" secondAttribute="leading" id="Aqo-sd-9C7"/>
                 <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="YBl-n2-Opn" secondAttribute="trailing" id="CYK-UV-LIG"/>
+                <constraint firstItem="Xto-ph-l7R" firstAttribute="trailing" secondItem="hqm-B0-Wkt" secondAttribute="trailing" id="JKU-XH-rHz"/>
                 <constraint firstItem="hqm-B0-Wkt" firstAttribute="trailing" secondItem="YBl-n2-Opn" secondAttribute="trailing" id="L0x-MY-Iwe"/>
+                <constraint firstItem="Xto-ph-l7R" firstAttribute="top" secondItem="hqm-B0-Wkt" secondAttribute="bottom" constant="8" id="Ngz-SW-vwd"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="mHp-rG-3ta" secondAttribute="bottom" constant="20" id="VtD-6n-s1U"/>
                 <constraint firstItem="hqm-B0-Wkt" firstAttribute="top" secondItem="YBl-n2-Opn" secondAttribute="bottom" constant="8" id="agP-P1-sgB"/>
                 <constraint firstItem="YBl-n2-Opn" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="eVU-7u-MVI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
-            <point key="canvasLocation" x="26.5" y="52.5"/>
+            <point key="canvasLocation" x="26.399999999999999" y="51.724137931034484"/>
         </view>
     </objects>
 </document>

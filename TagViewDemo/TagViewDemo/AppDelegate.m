@@ -18,8 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    TagViewController * tag = [[TagViewController alloc]initWithNibName:@"TagViewController" bundle:nil];
-    self.window.rootViewController = tag;
+//    TagViewController * tag = [[TagViewController alloc]initWithNibName:@"TagViewController" bundle:nil];
+//    self.window.rootViewController = tag;
     return YES;
 }
 

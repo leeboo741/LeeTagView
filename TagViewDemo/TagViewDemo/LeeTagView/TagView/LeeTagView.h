@@ -10,6 +10,9 @@
 #import "LeeTagButton.h"
 #import "LeeTagViewModel.h"
 
+#pragma mark -
+#pragma mark Enum
+
 typedef enum : NSUInteger {
     LeeTagViewStyleSelectDisable = 0, // 不可选
     LeeTagViewStyleSelectSingle = 1, // 单选
@@ -22,27 +25,33 @@ typedef enum : NSUInteger {
 } LeeTagViewLineStyle; // tagview 样式 类型
 
 @class LeeTagView;
+
+#pragma mark -
+#pragma mark Delegate
+
 @protocol LeeTagViewDelegate<NSObject>
+
+@optional
 -(void)leeTagView:(LeeTagView *)tagView tapTagButton:(LeeTagButton *)tagButton atIndex:(NSInteger)index;
+
 @end
+
+#pragma mark -
+#pragma mark DataSource
 
 @protocol LeeTagViewDataSource<NSObject>
 
 @end
 
+#pragma mark -
+#pragma mark Interface
+
 @interface LeeTagView : UIView <UITableViewDelegate>
 
-#pragma mark Delegate
 @property (nonatomic, weak) id<LeeTagViewDelegate> delegate; // tagview 协议
-
-#pragma mark DataSource
 @property (nonatomic, weak) id<LeeTagViewDataSource> dataSource; // tagview 数据源 (暂不使用，稍后想明白了再说)
-
-#pragma mark Style
 @property (nonatomic, assign) LeeTagViewSelectionStyle tagViewSelectionStyle; // tagview 选中 类型 单选|多选|不可选
 @property (nonatomic, assign) LeeTagViewLineStyle tagViewLineStyle; // tagview 样式 类型 单行|多行
-
-#pragma mark Form
 @property (nonatomic, assign) CGFloat tagViewMaxWidth; // tagview 最大宽度
 @property (nonatomic, assign) UIEdgeInsets tagViewPadding; // tag展示View 边距
 @property (nonatomic, assign) CGFloat itemSpacingV; // 内部元素 垂直间距
@@ -50,11 +59,38 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CGFloat itemRegularWidth; // 内部元素 固定宽度
 @property (nonatomic, assign) CGFloat itemRegularHeight; // 内部元素 固定高度
 
+/**
+ 添加 Tag
 
+ @param tag 要添加的tag数据模型
+ */
 -(void)addTag:(LeeTagViewModel *)tag;
+
+/**
+ 插入 Tag
+
+ @param tag 要插入的tag数据模型
+ @param index 想要出入的位置
+ */
 -(void)insertTag:(LeeTagViewModel *)tag atIndex:(NSInteger)index;
+
+/**
+ 移除 Tag
+
+ @param tag 要移除的tag数据模型
+ */
 -(void)removeTag:(LeeTagViewModel *)tag;
+
+/**
+ 移除 Tag
+
+ @param index 要移除哪个位置的Tag
+ */
 -(void)removeTagAtIndex:(NSInteger)index;
+
+/**
+ 清空Tag
+ */
 -(void)removeAllTags;
 
 @end

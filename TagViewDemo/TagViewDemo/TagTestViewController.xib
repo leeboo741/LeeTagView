@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagTestViewController">
+            <connections>
+                <outlet property="addTagView" destination="kIY-TQ-7b5" id="yQ5-pe-MIf"/>
+                <outlet property="testTagView" destination="VDz-8k-XpI" id="1b0-Sa-ucg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDz-8k-XpI" customClass="LeeTagView">
+                    <rect key="frame" x="0.0" y="20" width="375" height="128"/>
+                    <color key="backgroundColor" red="1" green="0.76818942410000002" blue="0.327526975" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4UO-YK-jpU">
+                    <rect key="frame" x="16" y="617" width="34" height="30"/>
+                    <state key="normal" title="back"/>
+                    <connections>
+                        <action selector="back:" destination="-1" eventType="touchUpInside" id="zFb-eo-DSD"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kIY-TQ-7b5" customClass="LeeTagView">
+                    <rect key="frame" x="0.0" y="156" width="375" height="128"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="kIY-TQ-7b5" firstAttribute="trailing" secondItem="VDz-8k-XpI" secondAttribute="trailing" id="7ra-me-53C"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="VDz-8k-XpI" secondAttribute="trailing" id="8iR-m2-ZfB"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="4UO-YK-jpU" secondAttribute="bottom" constant="20" id="PEi-B4-BDg"/>
+                <constraint firstItem="VDz-8k-XpI" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="fg2-ee-6Sj"/>
+                <constraint firstItem="4UO-YK-jpU" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" constant="16" id="hOQ-AK-PLS"/>
+                <constraint firstItem="VDz-8k-XpI" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="qfT-5c-7XP"/>
+                <constraint firstItem="kIY-TQ-7b5" firstAttribute="leading" secondItem="VDz-8k-XpI" secondAttribute="leading" id="w1u-he-EqG"/>
+                <constraint firstItem="kIY-TQ-7b5" firstAttribute="top" secondItem="VDz-8k-XpI" secondAttribute="bottom" constant="8" id="wZJ-eF-Cfp"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="52" y="73.313343328335833"/>
+        </view>
+    </objects>
+</document>

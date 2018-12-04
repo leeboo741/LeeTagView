@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04FE715121B53561001C411B /* TagTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE714F21B53561001C411B /* TagTestViewController.m */; };
+		04FE715221B53561001C411B /* TagTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE715021B53561001C411B /* TagTestViewController.xib */; };
 		B0317490213FBDC900158183 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B031748E213FBDC900158183 /* TagViewController.m */; };
 		B0317491213FBDC900158183 /* TagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B031748F213FBDC900158183 /* TagViewController.xib */; };
 		B0364FD8213E162E00988948 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0364FD7213E162E00988948 /* AppDelegate.m */; };
@@ -40,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04FE714E21B53561001C411B /* TagTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagTestViewController.h; sourceTree = "<group>"; };
+		04FE714F21B53561001C411B /* TagTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagTestViewController.m; sourceTree = "<group>"; };
+		04FE715021B53561001C411B /* TagTestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagTestViewController.xib; sourceTree = "<group>"; };
 		B031748D213FBDC900158183 /* TagViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
 		B031748E213FBDC900158183 /* TagViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		B031748F213FBDC900158183 /* TagViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagViewController.xib; sourceTree = "<group>"; };
@@ -118,6 +123,9 @@
 				B0365008213E1B7000988948 /* LeeTagView */,
 				B0364FD6213E162E00988948 /* AppDelegate.h */,
 				B0364FD7213E162E00988948 /* AppDelegate.m */,
+				04FE714E21B53561001C411B /* TagTestViewController.h */,
+				04FE714F21B53561001C411B /* TagTestViewController.m */,
+				04FE715021B53561001C411B /* TagTestViewController.xib */,
 				B031748D213FBDC900158183 /* TagViewController.h */,
 				B031748E213FBDC900158183 /* TagViewController.m */,
 				B031748F213FBDC900158183 /* TagViewController.xib */,
@@ -288,6 +296,7 @@
 				B0364FE3213E162E00988948 /* LaunchScreen.storyboard in Resources */,
 				B0317491213FBDC900158183 /* TagViewController.xib in Resources */,
 				B0364FE0213E162E00988948 /* Assets.xcassets in Resources */,
+				04FE715221B53561001C411B /* TagTestViewController.xib in Resources */,
 				B0364FDE213E162E00988948 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +327,7 @@
 				B0365016213E1E6900988948 /* LeeTagView.m in Sources */,
 				B0364FE6213E162E00988948 /* main.m in Sources */,
 				B036500D213E1E0900988948 /* LeeTagViewModel.m in Sources */,
+				04FE715121B53561001C411B /* TagTestViewController.m in Sources */,
 				B0364FD8213E162E00988948 /* AppDelegate.m in Sources */,
 				B0317490213FBDC900158183 /* TagViewController.m in Sources */,
 			);

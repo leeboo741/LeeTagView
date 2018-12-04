@@ -8,33 +8,22 @@
 
 #import "LeeTagViewModel.h"
 
-static CGFloat kTagTextFontSize = 13.0f;
-static CGFloat kTagBorderWidth = 1.0f;
+// 默认初始值
+static CGFloat kTagTextFontSize = 13.0f;  // 字体 大小
+static CGFloat kTagBorderWidth = 1.0f; // 边线宽度
 
 @implementation LeeTagViewModel
 
 -(instancetype)init{
     self = [super init];
     if (self) {
-        _tagTextFontSize = kTagTextFontSize;
-//        _tagSelectTextFontSize = kTagTextFontSize;
-//        _tagDisableTextFontSize = kTagTextFontSize;
-//        _tagHighLightTextFontSize = kTagTextFontSize;
-        
-        _tagBgColor = [UIColor whiteColor];
-        _tagTextColor = [UIColor blackColor];
-        _tagBorderColor = [UIColor orangeColor];
-        _tagBorderWidth = kTagBorderWidth;
-        _enable = YES;
+        _tagBgColor = [UIColor whiteColor]; // 默认 背景颜色
+        _tagTextFontSize = kTagTextFontSize; // 默认 字体大小
+        _tagTextColor = [UIColor blackColor]; // 默认 字体颜色
+        _tagBorderColor = [UIColor orangeColor]; // 默认 边线颜色
+        _tagBorderWidth = kTagBorderWidth; // 默认 边线宽度
+        _enable = YES; // 是否可用 默认 可用
     }
     return self;
 }
-
-//-(UIFont *)tagSelectTextFont{
-//    if (_tagSelectTextFont) {
-//        return _tagSelectTextFont;
-//    }else{
-//        return _tagTextFont;
-//    }
-//}
 @end
