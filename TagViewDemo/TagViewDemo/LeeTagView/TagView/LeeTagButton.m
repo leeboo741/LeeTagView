@@ -27,13 +27,17 @@
 }
 #pragma mark -
 #pragma mark Rewrite UIButton
-// 重写 UIButton 设置 imageView Rect 的方法
--(CGRect)imageRectForContentRect:(CGRect)contentRect{
-    CGFloat height = contentRect.size.height / 2;
-    CGFloat width = height;
-    CGFloat x = 10;
-    CGFloat y = (contentRect.size.height - height) / 2;
-    return CGRectMake(x, y, width, height);
+/**
+ 重写内容宽高方法
+
+ @return 内容宽高
+ */
+-(CGSize)intrinsicContentSize{
+    // 因为设置了titleEdgeInsets，如果不重写该方法可能会造成文字显示不全，也就是sizeFit效果不一定还会存在哟。
+    CGSize size = [super intrinsicContentSize];
+    CGFloat width = size.width + self.titleEdgeInsets.left + self.titleEdgeInsets.right;
+    CGFloat height = size.height + self.titleEdgeInsets.top + self.titleEdgeInsets.bottom;
+    return CGSizeMake(width, height);
 }
 #pragma mark -
 #pragma mark SET/GET
@@ -133,7 +137,15 @@
  */
 -(void)setUpButtonEdgeInsets:(LeeTagViewModel *)tagViewModel{
     // padding
-    self.contentEdgeInsets = tagViewModel.contentPadding;
+    CGFloat left = tagViewModel.contentPadding.left;
+    CGFloat right = tagViewModel.contentPadding.right;
+    CGFloat top = tagViewModel.contentPadding.top;
+    CGFloat bottom = tagViewModel.contentPadding.bottom;
+    CGFloat imageAndLabelPadding = tagViewModel.imageAndLabelPadding;
+    self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    self.imageEdgeInsets = UIEdgeInsetsMake(top, left, bottom, right);
+    self.titleEdgeInsets = UIEdgeInsetsMake(top, left + imageAndLabelPadding, bottom, right);
 }
 
 /**
@@ -183,7 +195,7 @@
 /**
  设置 Button 的 文本属性
 
- @param tagViewModel <#tagViewModel description#>
+ @param tagViewModel viewmodel
  */
 -(void)setUpButtonTextProperty:(LeeTagViewModel *)tagViewModel{
     
@@ -216,10 +228,6 @@
     }
     else
     {
-//        self.titleLabel.font = tagViewModel.tagSelectTextFont ?: [UIFont systemFontOfSize:tagViewModel.tagSelectTextFontSize];
-//        if (tagViewModel.tagSelectText) {
-//            [self setTitle:tagViewModel.tagSelectText forState:UIControlStateSelected];
-//        }
         if (tagViewModel.tagSelectTextColor)
         {
             [self setTitleColor:tagViewModel.tagSelectTextColor forState:UIControlStateSelected];
@@ -234,15 +242,10 @@
     }
     else
     {
-//        self.titleLabel.font = tagViewModel.tagSelectTextFont ?: [UIFont systemFontOfSize:tagViewModel.tagSelectTextFontSize];
-//        if (tagViewModel.tagHighLightText) {
-//            [self setTitle:tagViewModel.tagHighLightText forState:UIControlStateSelected];
-//        }
         if (tagViewModel.tagHighLightTextColor)
         {
             [self setTitleColor:tagViewModel.tagHighLightTextColor forState:UIControlStateSelected];
         }
-//        self.titleLabel.font = tagViewModel.tagHighLightTextFont ?: [UIFont systemFontOfSize:tagViewModel.tagHighLightTextFontSize];
     }// 结束 高亮状态下 富文本判断
     
     // text disable
@@ -252,10 +255,6 @@
     }
     else
     {
-//        self.titleLabel.font = tagViewModel.tagDisableTextFont ?: [UIFont systemFontOfSize:tagViewModel.tagDisableTextFontSize];
-//        if (tagViewModel.tagDisableText) {
-//            [self setTitle:tagViewModel.tagDisableText forState:UIControlStateSelected];
-//        }
         if (tagViewModel.tagDisableTextColor)
         {
             [self setTitleColor:tagViewModel.tagDisableTextColor forState:UIControlStateSelected];

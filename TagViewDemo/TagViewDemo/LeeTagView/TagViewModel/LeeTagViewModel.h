@@ -68,6 +68,7 @@
 // UIEdgeInsetsMake (CGFloat top, CGFloat left, CGFloat bottom, CGFloat right)
 // 里面的四个参数表示距离上边界、左边界、下边界、右边界的距离，默认都为零
 @property (nonatomic, assign) UIEdgeInsets contentPadding; // button 内容边界距离
+@property (nonatomic, assign) CGFloat imageAndLabelPadding; // button image和label的间距
 
 #pragma mark -
 #pragma mark Tag Status

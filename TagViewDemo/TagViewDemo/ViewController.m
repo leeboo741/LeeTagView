@@ -21,19 +21,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
+/**
+ viewController1 点击
+
+ @param sender 按钮
+ */
 - (IBAction)buttonaction:(id)sender {
-    TagViewController * tagViewController = [[TagViewController alloc] initWithNibName:@"TagViewController" bundle:nil];
+    TagViewController * tagViewController = [[TagViewController alloc] initWithNibName:@"TagViewController"
+                                                                                bundle:nil];
     [self presentViewController:tagViewController
                        animated:YES
                      completion:nil];
 }
+
+/**
+ ViewController2 点击
+
+ @param sender 按钮
+ */
 - (IBAction)button2Action:(id)sender {
-    TagTestViewController * tagTestViewController = [[TagTestViewController alloc]initWithNibName:@"TagTestViewController" bundle:nil];
+    TagTestViewController * tagTestViewController = [[TagTestViewController alloc]initWithNibName:@"TagTestViewController"
+                                                                                           bundle:nil];
     [self presentViewController:tagTestViewController
                        animated:YES
                      completion:nil];
 }
 
+- (IBAction)viewController3Action:(id)sender {
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

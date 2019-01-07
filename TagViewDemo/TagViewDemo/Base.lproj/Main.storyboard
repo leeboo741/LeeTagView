@@ -32,12 +32,32 @@
                                     <action selector="button2Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="61o-76-ZAT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PMm-FE-sHQ">
+                                <rect key="frame" x="132.5" y="404" width="110" height="30"/>
+                                <state key="normal" title="ViewController3"/>
+                                <connections>
+                                    <action selector="viewController3Action:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BBP-kw-WBH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ic-9b-PHi">
+                                <rect key="frame" x="25" y="20" width="85" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="JBO-YK-ejc"/>
+                                </constraints>
+                                <state key="normal" title="内容" image="chcekmark_full_red">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="PMm-FE-sHQ" firstAttribute="centerX" secondItem="8cC-Pd-LrE" secondAttribute="centerX" id="5YL-aM-WTT"/>
                             <constraint firstItem="zZy-ta-yKI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="FhD-El-VOb"/>
+                            <constraint firstItem="9Ic-9b-PHi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="Fsg-kn-83x"/>
                             <constraint firstItem="8cC-Pd-LrE" firstAttribute="centerX" secondItem="zZy-ta-yKI" secondAttribute="centerX" id="Udg-Cy-mVk"/>
+                            <constraint firstItem="9Ic-9b-PHi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WF7-6g-RcN"/>
                             <constraint firstItem="8cC-Pd-LrE" firstAttribute="top" secondItem="zZy-ta-yKI" secondAttribute="bottom" constant="7.5" id="fEj-E7-s6K"/>
+                            <constraint firstItem="PMm-FE-sHQ" firstAttribute="top" secondItem="8cC-Pd-LrE" secondAttribute="bottom" constant="8" id="min-Ge-Bui"/>
                             <constraint firstItem="zZy-ta-yKI" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="qos-DT-py8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -47,4 +67,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="chcekmark_full_red" width="48" height="48"/>
+    </resources>
 </document>

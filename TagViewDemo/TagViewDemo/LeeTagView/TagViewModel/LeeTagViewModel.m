@@ -22,6 +22,8 @@ static CGFloat kTagBorderWidth = 1.0f; // 边线宽度
         _tagTextColor = [UIColor blackColor]; // 默认 字体颜色
         _tagBorderColor = [UIColor orangeColor]; // 默认 边线颜色
         _tagBorderWidth = kTagBorderWidth; // 默认 边线宽度
+        _contentPadding = UIEdgeInsetsMake(5, 5, 5, 5); // 边距
+        _imageAndLabelPadding = 5.0f; // 图片文字间距
         _enable = YES; // 是否可用 默认 可用
     }
     return self;

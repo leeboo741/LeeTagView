@@ -62,7 +62,7 @@
             [self.addTagView removeTag:tagButton.tagViewModel];
         }
     }
-    
+
 }
 -(NSArray *)dataArray{
     return @[
