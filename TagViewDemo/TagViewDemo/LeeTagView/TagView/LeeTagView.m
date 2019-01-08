@@ -18,23 +18,39 @@
 
 #import "LeeTagView.h"
 
+#pragma mark -
+#pragma mark Interface
+
 @interface LeeTagView()
 
-@property (nonatomic, strong) NSMutableArray<LeeTagViewModel *> * tags; // 数据源
+@property (nonatomic, strong) NSMutableArray<LeeTagItemViewModel *> * tags; // 数据源
 @property (nonatomic, assign) BOOL didSetUp; // 是否设置,其实就是控制不要频繁的在layoutsubviews里面刷新，也是防着循环调用
 @end
+
+#pragma mark -
+#pragma mark Static
 
 static CGFloat kItemSpacingH = 8.0f; // 水平间距
 static CGFloat kItemSpacingV = 8.0f; // 垂直间距
 
+#pragma mark -
+#pragma mark Implementation
+
 @implementation LeeTagView
+
 #pragma mark -
 #pragma mark Rewrite
-// 重写IntrinsicContentSize方法, 控制tagView的bounds
+
+/**
+ 重写IntrinsicContentSize方法, 控制tagView的bounds
+
+ @return 内置大小
+ */
 -(CGSize)intrinsicContentSize
 {
     // 如果内容为空，内容宽高坍缩成零点状态
-    if (!self.tags.count) {
+    if (!self.tags.count)
+    {
         return CGSizeZero;
     }
     // tagView padding
@@ -58,7 +74,8 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
         // 行数
         NSInteger lineCount = 0;
         // 遍历 tagview 上的 itme
-        for (UIView * tagItem in self.subviews) {
+        for (UIView * tagItem in self.subviews)
+        {
             // 获取 tagItem 的内容尺寸
             CGSize tagItemIntrinsicContentSize = tagItem.intrinsicContentSize;
             // 如果固定宽高不为 0 ，则使用固定宽高。否则使用 tagItem 自有内容宽高
@@ -72,6 +89,15 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
                 {
                     // 在范围内 不折行 光标移动 一个item距离
                     X += (width + self.itemSpacingH);
+                    // 不折行 也要判断最大高度 进行高度变化
+                    // 获取上一个item的高度
+                    CGFloat preHeight = (self.itemRegularHeight != 0 ? self.itemRegularHeight : preTagItem.intrinsicContentSize.height);
+                    // 如果当前item的高度大于上一个item的高度，当前内容高度需要加上增加的值，如果小于，说明上一个item已经加过高度了，高度不需要增加，因为高度只选择其中最高的计算
+                    if (height > preHeight)
+                    {
+                        // 内容高度 因为在一行内，内容高度已经加上了原本的高度，只需要追加差值
+                        intrinsicHeight += height - preHeight;
+                    }
                 }
                 else // 超出最大宽度范围
                 {
@@ -104,27 +130,108 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     }
     else // 如果 是单行样式 或者 tagView最大宽度小于等于0
     {
-        for (UIView * tagItem in self.subviews) {
+        // 行中最大高度
+        CGFloat maxHeight = 0;
+        for (UIView * tagItem in self.subviews)
+        {
+            // 当前item的内容宽高
             CGSize tagItemIntrinsicContentSize = tagItem.intrinsicContentSize;
+            // 内容宽度 追加 item 的 内容宽度，如果有固定宽度追加固定宽度
             intrinsicWidth += ( self.itemRegularWidth != 0 ? self.itemRegularWidth : tagItemIntrinsicContentSize.width );
+            // 如果最大高度 小于 内容高度
+            if (maxHeight < tagItemIntrinsicContentSize.height) {
+                // 最大高度 重赋值 内容高度
+                maxHeight = tagItemIntrinsicContentSize.height;
+            }
         }
+        // 最终 内容宽度 等于 所有item内容宽度的和 加 每个item 的间距 和 最终右边距
         intrinsicWidth += ( self.itemSpacingH * (self.subviews.count - 1) + rightPadding );
-        intrinsicHeight += ( ((UIView *)self.subviews.firstObject).intrinsicContentSize.height + bottomPadding );
+        // 最终 内容高度 等于 最大内容高度 加 底部边距
+        intrinsicHeight += ( maxHeight + bottomPadding );
     } // 结束 单行演示 和 最大宽度的 判断
+    // 返回最终计算的内容宽高
     return CGSizeMake(intrinsicWidth, intrinsicHeight);
 }
 
-// 重写 layoutSubviews 方法
+/**
+ 重写 layoutSubviews 方法
+ */
 -(void)layoutSubviews
 {
     [super layoutSubviews];
     [self resetTags];
-    if (self.tagViewLineStyle != LeeTagViewLineStyleSingle) {
+    if (self.tagViewLineStyle != LeeTagViewLineStyleSingle)
+    {
         self.tagViewMaxWidth = self.frame.size.width;
     }
 }
 
-// 重置 刷新 tagview ，控制 tagItem 的frame
+#pragma mark -
+#pragma mark Set/Get
+
+/**
+ GET item 水平间隔
+
+ @return item水平间隔
+ */
+-(CGFloat)itemSpacingH
+{
+    if (_itemSpacingH == 0)
+    {
+        return kItemSpacingH;
+    }
+    return _itemSpacingH;
+}
+
+/**
+ GET item 垂直间隔
+
+ @return item垂直间隔
+ */
+-(CGFloat)itemSpacingV
+{
+    if (_itemSpacingV == 0)
+    {
+        return kItemSpacingV;
+    }
+    return _itemSpacingV;
+}
+
+/**
+ GET tags 数据模型对象数组
+
+ @return tags
+ */
+-(NSMutableArray<LeeTagItemViewModel *> *)tags
+{
+    if (!_tags)
+    {
+        _tags = [NSMutableArray array];
+    }
+    return _tags;
+}
+
+/**
+ 设置最大宽度
+
+ @param tagViewMaxWidth 最大宽度
+ */
+-(void)setTagViewMaxWidth:(CGFloat)tagViewMaxWidth
+{
+    if (_tagViewMaxWidth != tagViewMaxWidth)
+    {
+        _tagViewMaxWidth = tagViewMaxWidth;
+        _didSetUp = NO;
+        [self invalidateIntrinsicContentSize];
+        [self layoutIfNeeded];
+    }
+}
+#pragma mark -
+#pragma mark Action
+
+/**
+ 重置 刷新 tagview ，控制 tagItem 的frame
+ */
 -(void)resetTags
 {
     if (self.didSetUp || !self.tags.count)
@@ -147,6 +254,8 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     {
         // 行数
         NSInteger lineCount = 0;
+        // 上一行最大行高
+        CGFloat maxUpLineHeight = 0;
         // 遍历 tagView 上的 item
         for (UIView *tagItem in self.subviews)
         {
@@ -165,6 +274,10 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
                                                CGRectGetMinY(preTagItem.frame),
                                                width,
                                                height);
+                    // 如果上一个item 圈定的最大行高 小于当前 item 圈定的最大 行高， 替换最大行高的值
+                    if (maxUpLineHeight < (CGRectGetMinY(preTagItem.frame)+height)) {
+                        maxUpLineHeight = CGRectGetMinY(preTagItem.frame) + height;
+                    }
                     // 移动 X 光标
                     X += ( width + self.itemSpacingH );
                 }
@@ -172,31 +285,40 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
                 {
                     // 行数+1
                     lineCount ++;
+                    // 新的一行，上一行的最大行高要加上垂直间距
+                    maxUpLineHeight += self.itemSpacingV;
                     // X 光标归零
                     X = leftPadding;
                     // 获取宽度，在自有宽度和最大宽度减去左右边距中选择最小宽度
                     CGFloat itemWidth = MIN(width, self.tagViewMaxWidth - leftPadding - rightPadding);
-                    // item 的 frame X = X 光标 Y == 上一个Item的底部坐标 + 垂直间距
+                    // item 的 frame X = X 光标 Y == 上一行最大行高的值
                     tagItem.frame = CGRectMake(X,
-                                               CGRectGetMaxY(preTagItem.frame) + self.itemSpacingV,
+                                               maxUpLineHeight,
                                                itemWidth,
                                                height);
                     // 移动 X 光标
                     X += ( width + self.itemSpacingH );
+                    // 换了新的一行，最大行高要重新计算
+                    maxUpLineHeight += height;
                 }
             }
             else // 没有上一个 Item
             {
                 // 行数 +1
                 lineCount ++;
+                // 第一个item 上一行最大行高 为 垂直间距
+                maxUpLineHeight = self.itemSpacingV;
                 // 获取宽度，在自有宽度和最大宽度减去左右边距中选择最小宽度
                 CGFloat itemWidth = MIN(width, self.tagViewMaxWidth - leftPadding - rightPadding);
-                // item 的 frame X = X 光标 Y == 上一个Item的底部坐标 + 垂直间距
+                // item 的 frame X = X 光标 Y = 垂直间距 , item 宽度 ，item 高度
                 tagItem.frame = CGRectMake(X,
-                                           CGRectGetMaxY(preTagItem.frame) + self.itemSpacingV,
+                                           maxUpLineHeight,
                                            itemWidth,
                                            height);
+                // X 移动
                 X += ( width + self.itemSpacingH );
+                // 有 item 了  可以比较最大行高了， 给最大行高赋值
+                maxUpLineHeight += height;
             } // preTagItem 判断
             preTagItem = tagItem;
         } // for item 循环
@@ -219,46 +341,16 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     self.didSetUp = YES;
 }
 
-#pragma mark -
-#pragma mark Set/Get
-// item 水平间隔
--(CGFloat)itemSpacingH
+
+/**
+ tag Button 点击事件
+
+ @param action 点击手势
+ */
+-(void)tagButtonAction:(id)action
 {
-    if (_itemSpacingH == 0) {
-        return kItemSpacingH;
-    }
-    return _itemSpacingH;
-}
-//item 垂直间隔
--(CGFloat)itemSpacingV
-{
-    if (_itemSpacingV == 0) {
-        return kItemSpacingV;
-    }
-    return _itemSpacingV;
-}
-//数据模型对象数组
--(NSMutableArray<LeeTagViewModel *> *)tags
-{
-    if (!_tags) {
-        _tags = [NSMutableArray array];
-    }
-    return _tags;
-}
-// 最大宽度
--(void)setTagViewMaxWidth:(CGFloat)tagViewMaxWidth
-{
-    if (_tagViewMaxWidth != tagViewMaxWidth) {
-        _tagViewMaxWidth = tagViewMaxWidth;
-        _didSetUp = NO;
-        [self invalidateIntrinsicContentSize];
-    }
-}
-#pragma mark -
-#pragma mark Tag Action
-// tag Button 点击事件
--(void)tagButtonAction:(LeeTagButton *)tagButton
-{
+    UITapGestureRecognizer * tap = (UITapGestureRecognizer *)action;
+    LeeTagItem * tagButton = (LeeTagItem *)tap.view;
     // 根据 选择样式 不同，做不同操作
     if (self.tagViewSelectionStyle == LeeTagViewStyleSelectSingle) // 单选
     {
@@ -266,8 +358,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
         // 取消其他按钮选中状态
         [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj,
                                                     NSUInteger idx,
-                                                    BOOL * _Nonnull stop) {
-            LeeTagButton * tempTagButton = (LeeTagButton *)obj;
+                                                    BOOL * _Nonnull stop)
+        {
+            LeeTagItem * tempTagButton = (LeeTagItem *)obj;
             if (tagButton != tempTagButton)
             {
                 tempTagButton.selected = NO;
@@ -282,95 +375,138 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     {
         
     } // 结束 选择样式 判断
+    // 允许重新计算内置大小
+    self.didSetUp = NO;
     [self invalidateIntrinsicContentSize];
+    [self layoutSubviews];
     // delegate 往外通知点击事件
     if (self.delegate
         &&
-        [self.delegate respondsToSelector:@selector(leeTagView:tapTagButton:atIndex:)])
+        [self.delegate respondsToSelector:@selector(leeTagView:tapTagItem:atIndex:)])
     {
         [self.delegate leeTagView:self
-                     tapTagButton:tagButton
+                       tapTagItem:tagButton
                           atIndex:[self.subviews indexOfObject:tagButton]];
     }
 }
 #pragma mark -
-#pragma mark Public Action
--(void)addTag:(LeeTagViewModel *)tag
+#pragma mark Public
+
+/**
+ 加入 tag
+
+ @param tag tag
+ */
+-(void)addTag:(LeeTagItemViewModel *)tag
 {
     NSParameterAssert(tag);
-    LeeTagButton * tagButton = [LeeTagButton tagButtonWithTagViewModel:tag];
-    [tagButton addTarget:self
-                  action:@selector(tagButtonAction:)
-        forControlEvents:UIControlEventTouchUpInside];
+    // 追加tag
+    LeeTagItem * tagButton = [LeeTagItem tagItemWithItemViewModel:tag];
+    [tagButton addTapTarget:self action:@selector(tagButtonAction:)];
     [self addSubview:tagButton];
     [self.tags addObject:tag];
     self.didSetUp = NO;
     [self invalidateIntrinsicContentSize];
+    [self layoutIfNeeded];
 }
 
--(void)insertTag:(LeeTagViewModel *)tag atIndex:(NSInteger)index
+/**
+ 插入tag
+
+ @param tag tag
+ @param index 要插入的位置
+ */
+-(void)insertTag:(LeeTagItemViewModel *)tag atIndex:(NSInteger)index
 {
     NSParameterAssert(tag);
-    if (index + 1 > self.tags.count)
+    if (index + 1 > self.tags.count) // 如果 index 大于 数据源的长度，直接插入尾部
     {
         [self addTag:tag];
     }
-    else
+    else // 如果 小于等于 数据源长度 ， 插入对应位置
     {
-        LeeTagButton * tagButton = [LeeTagButton tagButtonWithTagViewModel:tag];
-        [tagButton addTarget:self
-                      action:@selector(tagButtonAction:)
-            forControlEvents:UIControlEventTouchUpInside];
+        LeeTagItem * tagButton = [LeeTagItem tagItemWithItemViewModel:tag];
+        [tagButton addTapTarget:self action:@selector(tagButtonAction:)];
         [self insertSubview:tagButton
                     atIndex:index];
         [self.tags insertObject:tag
                         atIndex:index];
         self.didSetUp = NO;
         [self invalidateIntrinsicContentSize];
+        [self layoutIfNeeded];
     }
 }
 
--(void)removeTag:(LeeTagViewModel *)tag
+/**
+ 移除tag
+
+ @param tag 要移除的tag
+ */
+-(void)removeTag:(LeeTagItemViewModel *)tag
 {
     NSParameterAssert(tag);
+    // tag在数据源中的下标
     NSInteger index = [self.tags indexOfObject:tag];
+    // 如果不存在 不许操作
     if (NSNotFound == index)
     {
         return;
     }
+    // 移除数据源中数据
     [self.tags removeObjectAtIndex:index];
+    // 移除subview
     if (self.subviews.count > index)
     {
         [self.subviews[index] removeFromSuperview];
     }
+    // 允许并重新计算
     self.didSetUp = NO;
     [self invalidateIntrinsicContentSize];
+    [self layoutIfNeeded];
 }
 
+/**
+ 移除对应位置的tag
+
+ @param index tag对应的下标
+ */
 -(void)removeTagAtIndex:(NSInteger)index
 {
+    // 如果index 大于 tag的数量 不许移除
     if (index + 1 > self.tags.count)
     {
         return;
     }
+    // 移除数据
     [self.tags removeObjectAtIndex:index];
+    // 移除subview
     if (self.subviews.count > index)
     {
         [self.subviews[index] removeFromSuperview];
     }
+    // 允许并重新计算
     self.didSetUp = NO;
     [self invalidateIntrinsicContentSize];
+    [self layoutIfNeeded];
 }
 
+/**
+ 移除所有tag
+ */
 -(void)removeAllTags
 {
+    // 移除数据
     [self.tags removeAllObjects];
+    // 移除subView
     for (UIView * view in self.subviews)
     {
         [view removeFromSuperview];
     }
+    // 允许重新计算
     self.didSetUp = NO;
+    // 重新计算内置大小
     [self invalidateIntrinsicContentSize];
+    [self layoutIfNeeded];
 }
 
 @end

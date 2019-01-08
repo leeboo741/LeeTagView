@@ -7,19 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LeeTagButton.h"
-#import "LeeTagViewModel.h"
+#import "LeeTagItem.h"
+#import "leeTagItemViewModel.h"
 
 #pragma mark -
 #pragma mark Enum
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     LeeTagViewStyleSelectDisable = 0, // 不可选
     LeeTagViewStyleSelectSingle = 1, // 单选
     LeeTagViewStyleSelectMulti = 2, // 多选
 } LeeTagViewSelectionStyle; // tagview 选中 类型
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger
+{
     LeeTagViewLineStyleSingle = 0, // 单行
     LeeTagViewLineStyleMulti = 1, // 多行
 } LeeTagViewLineStyle; // tagview 样式 类型
@@ -32,7 +34,15 @@ typedef enum : NSUInteger {
 @protocol LeeTagViewDelegate<NSObject>
 
 @optional
--(void)leeTagView:(LeeTagView *)tagView tapTagButton:(LeeTagButton *)tagButton atIndex:(NSInteger)index;
+
+/**
+ 点击回调
+
+ @param tagView tagView
+ @param tagItem tagItem
+ @param index 所在下标
+ */
+-(void)leeTagView:(LeeTagView *)tagView tapTagItem:(LeeTagItem *)tagItem atIndex:(NSInteger)index;
 
 @end
 
@@ -46,7 +56,10 @@ typedef enum : NSUInteger {
 #pragma mark -
 #pragma mark Interface
 
-@interface LeeTagView : UIView <UITableViewDelegate>
+@interface LeeTagView : UIView
+
+#pragma mark -
+#pragma mark Property
 
 @property (nonatomic, weak) id<LeeTagViewDelegate> delegate; // tagview 协议
 @property (nonatomic, weak) id<LeeTagViewDataSource> dataSource; // tagview 数据源 (暂不使用，稍后想明白了再说)
@@ -59,12 +72,15 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) CGFloat itemRegularWidth; // 内部元素 固定宽度
 @property (nonatomic, assign) CGFloat itemRegularHeight; // 内部元素 固定高度
 
+#pragma mark -
+#pragma mark Function
+
 /**
  添加 Tag
 
  @param tag 要添加的tag数据模型
  */
--(void)addTag:(LeeTagViewModel *)tag;
+-(void)addTag:(LeeTagItemViewModel *)tag;
 
 /**
  插入 Tag
@@ -72,14 +88,14 @@ typedef enum : NSUInteger {
  @param tag 要插入的tag数据模型
  @param index 想要出入的位置
  */
--(void)insertTag:(LeeTagViewModel *)tag atIndex:(NSInteger)index;
+-(void)insertTag:(LeeTagItemViewModel *)tag atIndex:(NSInteger)index;
 
 /**
  移除 Tag
 
  @param tag 要移除的tag数据模型
  */
--(void)removeTag:(LeeTagViewModel *)tag;
+-(void)removeTag:(LeeTagItemViewModel *)tag;
 
 /**
  移除 Tag

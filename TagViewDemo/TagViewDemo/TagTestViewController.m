@@ -28,23 +28,27 @@
     _testTagView.tagViewPadding = UIEdgeInsetsMake(5, 5, 5, 5);
     _testTagView.tagViewMaxWidth = self.view.frame.size.width;
     [[self dataArray] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        LeeTagViewModel * tagModel = [[LeeTagViewModel alloc]init];
+        LeeTagItemViewModel * tagModel = [[LeeTagItemViewModel alloc]init];
         
-        tagModel.data = obj;
+        tagModel.normalTitle = obj;
+        tagModel.normalFont = [UIFont systemFontOfSize:9.0f];
+        tagModel.normalFontSize = 15.0f;
+        tagModel.normalColor = [UIColor greenColor];
+        tagModel.normalImage = [UIImage imageNamed:@"unSelected"];
+        tagModel.normalBGColor = [UIColor yellowColor];
+        tagModel.normalBorderColor = [UIColor redColor];
+        tagModel.normalBorderWidth = 1.0f;
+        tagModel.normalCornerRadius = 3.0f;
         
-        tagModel.tagText = obj;
-        tagModel.tagTextColor = [UIColor blackColor];
-        tagModel.tagTextFontSize = 13.0f;
-        tagModel.tagBgColor = [UIColor whiteColor];
-        tagModel.tagSelectTextColor = [UIColor redColor];
-        tagModel.tagSelectBgColor = [UIColor yellowColor];
-        
-        tagModel.tagCornerRadius = 10.0f;
-        tagModel.tagBorderColor = [UIColor grayColor];
-        tagModel.tagSelectBorderColor = [UIColor greenColor];
-        tagModel.tagBorderWidth = 2.0f;
-        
-        tagModel.contentPadding = UIEdgeInsetsMake(8, 8, 8, 8);
+        tagModel.selectedTitle = obj;
+        tagModel.selectedFont = [UIFont systemFontOfSize:20.0f];
+        tagModel.selectedFontSize = 15.0f;
+        tagModel.selectedColor = [UIColor redColor];
+        tagModel.selectedImage = [UIImage imageNamed:@"selected"];
+        tagModel.selectedBGColor = [UIColor yellowColor];
+        tagModel.selectedBorderColor = [UIColor greenColor];
+        tagModel.selectedBorderWidth = 5.0f;
+        tagModel.selectedCornerRadius = 10.0f;
         
         [self.testTagView addTag:tagModel];
     }];
@@ -54,15 +58,14 @@
     _addTagView.tagViewPadding = UIEdgeInsetsMake(5, 5, 5, 5);
     _addTagView.tagViewMaxWidth = self.view.frame.size.width;
 }
--(void)leeTagView:(LeeTagView *)tagView tapTagButton:(LeeTagButton *)tagButton atIndex:(NSInteger)index{
+-(void)leeTagView:(LeeTagView *)tagView tapTagItem:(LeeTagItem *)tagItem atIndex:(NSInteger)index{
     if (tagView == _testTagView){
-        if (tagButton.tagViewModel.isSelect) {
-            [self.addTagView addTag:tagButton.tagViewModel];
+        if (tagItem.selected) {
+            [self.addTagView addTag:tagItem.viewModel];
         }else{
-            [self.addTagView removeTag:tagButton.tagViewModel];
+            [self.addTagView removeTag:tagItem.viewModel];
         }
     }
-
 }
 -(NSArray *)dataArray{
     return @[

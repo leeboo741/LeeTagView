@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		047910B921E3271500D54345 /* LeeTagItemViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 047910B821E3271500D54345 /* LeeTagItemViewModel.m */; };
+		047910BC21E32A4600D54345 /* LeeTagItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 047910BB21E32A4600D54345 /* LeeTagItem.m */; };
 		04FE715121B53561001C411B /* TagTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FE714F21B53561001C411B /* TagTestViewController.m */; };
 		04FE715221B53561001C411B /* TagTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04FE715021B53561001C411B /* TagTestViewController.xib */; };
 		B0317490213FBDC900158183 /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B031748E213FBDC900158183 /* TagViewController.m */; };
@@ -19,8 +21,6 @@
 		B0364FE6213E162E00988948 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0364FE5213E162E00988948 /* main.m */; };
 		B0364FF0213E162E00988948 /* TagViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0364FEF213E162E00988948 /* TagViewDemoTests.m */; };
 		B0364FFB213E162E00988948 /* TagViewDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0364FFA213E162E00988948 /* TagViewDemoUITests.m */; };
-		B036500D213E1E0900988948 /* LeeTagViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B036500C213E1E0900988948 /* LeeTagViewModel.m */; };
-		B0365013213E1E5A00988948 /* LeeTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B0365012213E1E5A00988948 /* LeeTagButton.m */; };
 		B0365016213E1E6900988948 /* LeeTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0365015213E1E6900988948 /* LeeTagView.m */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +42,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		047910B721E3271500D54345 /* LeeTagItemViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeeTagItemViewModel.h; sourceTree = "<group>"; };
+		047910B821E3271500D54345 /* LeeTagItemViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeeTagItemViewModel.m; sourceTree = "<group>"; };
+		047910BA21E32A4600D54345 /* LeeTagItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeeTagItem.h; sourceTree = "<group>"; };
+		047910BB21E32A4600D54345 /* LeeTagItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeeTagItem.m; sourceTree = "<group>"; };
 		04FE714E21B53561001C411B /* TagTestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagTestViewController.h; sourceTree = "<group>"; };
 		04FE714F21B53561001C411B /* TagTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagTestViewController.m; sourceTree = "<group>"; };
 		04FE715021B53561001C411B /* TagTestViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TagTestViewController.xib; sourceTree = "<group>"; };
@@ -64,10 +68,6 @@
 		B0364FF6213E162E00988948 /* TagViewDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TagViewDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0364FFA213E162E00988948 /* TagViewDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TagViewDemoUITests.m; sourceTree = "<group>"; };
 		B0364FFC213E162E00988948 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B036500B213E1E0900988948 /* LeeTagViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeeTagViewModel.h; sourceTree = "<group>"; };
-		B036500C213E1E0900988948 /* LeeTagViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeeTagViewModel.m; sourceTree = "<group>"; };
-		B0365011213E1E5A00988948 /* LeeTagButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeeTagButton.h; sourceTree = "<group>"; };
-		B0365012213E1E5A00988948 /* LeeTagButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeeTagButton.m; sourceTree = "<group>"; };
 		B0365014213E1E6900988948 /* LeeTagView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeeTagView.h; sourceTree = "<group>"; };
 		B0365015213E1E6900988948 /* LeeTagView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeeTagView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -170,8 +170,8 @@
 		B0365009213E1B8400988948 /* TagViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B036500B213E1E0900988948 /* LeeTagViewModel.h */,
-				B036500C213E1E0900988948 /* LeeTagViewModel.m */,
+				047910B721E3271500D54345 /* LeeTagItemViewModel.h */,
+				047910B821E3271500D54345 /* LeeTagItemViewModel.m */,
 			);
 			path = TagViewModel;
 			sourceTree = "<group>";
@@ -179,10 +179,10 @@
 		B036500A213E1B9C00988948 /* TagView */ = {
 			isa = PBXGroup;
 			children = (
-				B0365011213E1E5A00988948 /* LeeTagButton.h */,
-				B0365012213E1E5A00988948 /* LeeTagButton.m */,
 				B0365014213E1E6900988948 /* LeeTagView.h */,
 				B0365015213E1E6900988948 /* LeeTagView.m */,
+				047910BA21E32A4600D54345 /* LeeTagItem.h */,
+				047910BB21E32A4600D54345 /* LeeTagItem.m */,
 			);
 			path = TagView;
 			sourceTree = "<group>";
@@ -323,12 +323,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0364FDB213E162E00988948 /* ViewController.m in Sources */,
-				B0365013213E1E5A00988948 /* LeeTagButton.m in Sources */,
+				047910B921E3271500D54345 /* LeeTagItemViewModel.m in Sources */,
 				B0365016213E1E6900988948 /* LeeTagView.m in Sources */,
 				B0364FE6213E162E00988948 /* main.m in Sources */,
-				B036500D213E1E0900988948 /* LeeTagViewModel.m in Sources */,
 				04FE715121B53561001C411B /* TagTestViewController.m in Sources */,
 				B0364FD8213E162E00988948 /* AppDelegate.m in Sources */,
+				047910BC21E32A4600D54345 /* LeeTagItem.m in Sources */,
 				B0317490213FBDC900158183 /* TagViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
