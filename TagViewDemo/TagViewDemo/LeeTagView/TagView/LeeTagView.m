@@ -5,16 +5,6 @@
 //  Created by YWKJ on 2018/9/4.
 //  Copyright © 2018年 YWKJ. All rights reserved.
 //
-/*
- 要做成自适应内容大小的View
- 1.手动适应 计算内容的Size,再设置frame,实在很low
- 2.自动适应 使用intrinsicContentSize属性
-     instrinisicContentSize （固有大小）我知道自己的大小，如果你没有为我指定大小，我就按照自有大小排列
-     UILabel/UIImageView/UIButton等这些组件以及某些包含他们的系统组件都具有此属性，遇到这些组件，你只需要为其指定位置即可。大小就使用Intrinsic Content Size就行了。
-     上述系统控件都重写了UIView 中的 -(CGSize)intrinsicContentSize: 方法。
-     并且在需要改变这个值的时候调用：invalidateIntrinsicContentSize 方法，通知系统这个值改变了
-     编写继承自UIView的自定义组件时，也想要有Intrinsic Content Size的时候，就可以通过这种方法来轻松实现。
- */
 
 #import "LeeTagView.h"
 
@@ -226,6 +216,7 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
         [self layoutIfNeeded];
     }
 }
+
 #pragma mark -
 #pragma mark Action
 
@@ -389,6 +380,7 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
                           atIndex:[self.subviews indexOfObject:tagButton]];
     }
 }
+
 #pragma mark -
 #pragma mark Public
 

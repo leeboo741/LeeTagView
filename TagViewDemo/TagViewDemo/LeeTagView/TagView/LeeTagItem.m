@@ -288,7 +288,8 @@ typedef enum : NSUInteger {
 
  @return viewmodel
  */
--(LeeTagItemViewModel *)viewModel{
+-(LeeTagItemViewModel *)viewModel
+{
     return _itemViewModel;
 }
 
@@ -297,7 +298,8 @@ typedef enum : NSUInteger {
 
  @return 获取内置大小
  */
--(CGSize)intrinsicContentSize{
+-(CGSize)intrinsicContentSize
+{
     // 文本大小
     CGSize labelSize = self.itemLabel.intrinsicContentSize;
     // 宽 == 图片宽 + 文本宽 + 图片左 + 文本左 + 文本右
@@ -466,10 +468,12 @@ typedef enum : NSUInteger {
     // 背景
     self.layer.cornerRadius = tempCornerRadius;
     self.layer.borderWidth = tempBorderWidth;
-    if (tempBorderColor) {
+    if (tempBorderColor)
+    {
         self.layer.borderColor = tempBorderColor.CGColor;
     }
-    if (tempBGColor) {
+    if (tempBGColor)
+    {
         self.backgroundColor = tempBGColor;
     }
     self.backgroundColor = tempBGColor;

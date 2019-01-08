@@ -31,6 +31,9 @@ typedef enum : NSUInteger
 #pragma mark -
 #pragma mark Delegate
 
+/**
+ Delegate
+ */
 @protocol LeeTagViewDelegate<NSObject>
 
 @optional
@@ -49,6 +52,9 @@ typedef enum : NSUInteger
 #pragma mark -
 #pragma mark DataSource
 
+/**
+ DataSource
+ */
 @protocol LeeTagViewDataSource<NSObject>
 
 @end
@@ -66,7 +72,7 @@ typedef enum : NSUInteger
 @property (nonatomic, assign) LeeTagViewSelectionStyle tagViewSelectionStyle; // tagview 选中 类型 单选|多选|不可选
 @property (nonatomic, assign) LeeTagViewLineStyle tagViewLineStyle; // tagview 样式 类型 单行|多行
 @property (nonatomic, assign) CGFloat tagViewMaxWidth; // tagview 最大宽度
-@property (nonatomic, assign) UIEdgeInsets tagViewPadding; // tag展示View 边距
+@property (nonatomic, assign) UIEdgeInsets tagViewPadding; // tagView 边距
 @property (nonatomic, assign) CGFloat itemSpacingV; // 内部元素 垂直间距
 @property (nonatomic, assign) CGFloat itemSpacingH; // 内部元素 水平间距
 @property (nonatomic, assign) CGFloat itemRegularWidth; // 内部元素 固定宽度
