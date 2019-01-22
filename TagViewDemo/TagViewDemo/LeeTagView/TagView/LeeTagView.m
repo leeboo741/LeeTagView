@@ -150,10 +150,6 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
 {
     [super layoutSubviews];
     [self resetTags];
-    if (self.tagViewLineStyle != LeeTagViewLineStyleSingle)
-    {
-        self.tagViewMaxWidth = self.frame.size.width;
-    }
 }
 
 #pragma mark -
@@ -212,8 +208,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     {
         _tagViewMaxWidth = tagViewMaxWidth;
         _didSetUp = NO;
-        [self invalidateIntrinsicContentSize];
+        
         [self layoutIfNeeded];
+        [self invalidateIntrinsicContentSize];
     }
 }
 
@@ -368,8 +365,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     } // 结束 选择样式 判断
     // 允许重新计算内置大小
     self.didSetUp = NO;
-    [self invalidateIntrinsicContentSize];
+    
     [self layoutSubviews];
+    [self invalidateIntrinsicContentSize];
     // delegate 往外通知点击事件
     if (self.delegate
         &&
@@ -398,8 +396,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     [self addSubview:tagButton];
     [self.tags addObject:tag];
     self.didSetUp = NO;
-    [self invalidateIntrinsicContentSize];
+    
     [self layoutIfNeeded];
+    [self invalidateIntrinsicContentSize];
 }
 
 /**
@@ -424,8 +423,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
         [self.tags insertObject:tag
                         atIndex:index];
         self.didSetUp = NO;
-        [self invalidateIntrinsicContentSize];
+        
         [self layoutIfNeeded];
+        [self invalidateIntrinsicContentSize];
     }
 }
 
@@ -453,8 +453,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     }
     // 允许并重新计算
     self.didSetUp = NO;
-    [self invalidateIntrinsicContentSize];
+    
     [self layoutIfNeeded];
+    [self invalidateIntrinsicContentSize];
 }
 
 /**
@@ -478,8 +479,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     }
     // 允许并重新计算
     self.didSetUp = NO;
-    [self invalidateIntrinsicContentSize];
+    
     [self layoutIfNeeded];
+    [self invalidateIntrinsicContentSize];
 }
 
 /**
@@ -497,8 +499,9 @@ static CGFloat kItemSpacingV = 8.0f; // 垂直间距
     // 允许重新计算
     self.didSetUp = NO;
     // 重新计算内置大小
-    [self invalidateIntrinsicContentSize];
+    
     [self layoutIfNeeded];
+    [self invalidateIntrinsicContentSize];
 }
 
 @end

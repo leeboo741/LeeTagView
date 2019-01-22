@@ -357,11 +357,8 @@ typedef enum : NSUInteger {
  */
 -(void)setItemState:(LeeTagItemState)itemState
 {
-    if(_itemState != itemState)
-    {
-        _itemState = itemState;
-        [self changeShow];
-    }
+    _itemState = itemState;
+    [self changeShow];
 }
 
 #pragma mark -
@@ -514,8 +511,12 @@ typedef enum : NSUInteger {
     {
         [self hideImage:YES];
     }
-    [self invalidateIntrinsicContentSize];
+    
+    [self setNeedsLayout];
+    
     [self layoutIfNeeded];
+    
+    [self invalidateIntrinsicContentSize];
     
 }
 
@@ -534,8 +535,8 @@ typedef enum : NSUInteger {
     
     _labelLeftConstraint.constant = _itemViewModel.imageAndLabelPadding;
     
-    [self invalidateIntrinsicContentSize];
-    [self layoutIfNeeded];
+    [self setNeedsLayout];
+    
 }
 
 /**
@@ -556,8 +557,8 @@ typedef enum : NSUInteger {
         _imageHeightConstraint.constant = _itemViewModel.imageHeightAndWidth;
         _labelLeftConstraint.constant = _itemViewModel.imageAndLabelPadding;
     }
-    [self invalidateIntrinsicContentSize];
-    [self layoutIfNeeded];
+    
+    [self setNeedsLayout];
 }
 
 #pragma mark -

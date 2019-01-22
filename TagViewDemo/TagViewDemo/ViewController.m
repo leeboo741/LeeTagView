@@ -11,6 +11,7 @@
 #import "TagTestViewController.h"
 #import "LeeTagView/TagView/LeeTagItem.h"
 #import "LeeTagView/TagViewModel/LeeTagItemViewModel.h"
+#import "ListViewController.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) LeeTagItemViewModel * tagViewModel;
@@ -81,6 +82,11 @@
 }
 
 - (IBAction)viewController3Action:(id)sender {
+    ListViewController * listViewController = [[ListViewController alloc]initWithNibName:@"ListViewController"
+                                                                                  bundle:nil];
+    [self presentViewController:listViewController
+                       animated:YES
+                     completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
